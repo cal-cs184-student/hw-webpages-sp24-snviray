@@ -1,0 +1,678 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS 184/284A: Computer Graphics and Imaging, Spring 2024 </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a4ee8264-1b71-4ea9-b188-c030c5be074d" class="page sans"><header><h1 class="page-title"><strong>CS 184/284A: Computer Graphics and Imaging, Spring 2024 </strong></h1><p class="page-description"></p></header><div class="page-body"><p id="152d88fa-3d47-4724-9ca0-5c82402af796" class=""><a href="https://cal-cs184-student.github.io/hw-webpages-sp24-snviray/hw1/index.html">https://cal-cs184-student.github.io/hw-webpages-sp24-snviray/hw1/index.html</a></p><p id="338ff693-a4d7-45bf-b990-00e8dc872140" class=""><strong>Homework 1: Rasterizer</strong></p><p id="968f97fc-d97b-4dd8-8a7c-2e2628c2e4e9" class=""><strong>Sara Viray</strong></p><h1 id="e900b944-7031-44b0-8d61-a9d8a1f5587f" class="">Overview</h1><p id="0cd1ce6e-57e2-4772-9165-96fa6c0f2b44" class=""> In this task, I implemented a simple rasterizer that supports supersampling, color interpolation, and texture sampling. For texture sampling, I implemented nearest and bilinear pixel sampling options as well as nearest and bilinear level sampling options. </p><p id="e96666bc-de30-436d-8466-6243ed11ed09" class="">From this project, I learned how simple rasterization works and antialiasing methods that I have seen before when I zoom in on pictures work. I also learned how textures are mathematically mapped onto shapes.</p><h1 id="25c6b5c5-53e7-42a5-bdf3-dd1e767a16e4" class="">Task 1 </h1><h2 id="5e7890b6-b527-4236-9586-2ada2ae02b2e" class="">Walk through how you rasterize triangles in your own words.</h2><ol type="1" id="fe0a690e-5edc-4b45-9935-a6a2b7f17a24" class="numbered-list" start="1"><li>Find the minimum and maximum <code>x</code> and <code>y</code> values out of the given vertices to find the bounds of sampled pixels.</li></ol><ol type="1" id="a1692d5e-33a8-4fd6-aed0-01c034001c71" class="numbered-list" start="2"><li>I ran a nested <code>for</code> loop over all combinations of <code>x</code> and <code>y</code> pixel values between <code>x_min</code> and <code>x_max</code> and <code>y_min</code> and <code>y_max</code></li></ol><ol type="1" id="68318617-5f04-4242-883b-250be37fc479" class="numbered-list" start="3"><li>I ran three line tests on <code>x + 0.5</code> and <code>y + 0.5</code> for each value of <code>x</code> and <code>y</code>. We add 0.5 to sample the middle of the pixel.<ul id="1e3114f2-aaf6-4094-9d7c-f445b2898cf8" class="bulleted-list"><li style="list-style-type:disc">The line test is <code>(x + 0.5 - x0) * (y1 - y0) + (y + 0.5 - y0) * (x1 - x0) &gt;= 0</code> or <code>V </code><code><strong>•</strong></code><code> N &gt;= 0</code> where <code>V</code> is the vector formed by a pair of vertices of the triangle and <code>N</code> is the vector to normal <code>V</code>.</li></ul></li></ol><ol type="1" id="bde24583-9d01-43f7-bfc9-22a6c4d0116e" class="numbered-list" start="4"><li>If all three line tests outcomes are the same (all <code>true</code> or all <code>false</code>), that means the point is inside the triangle, so we will fill the pixel with the given color. If not, we won&#x27;t render it.<ul id="a9c5ad12-1542-4fd8-864d-2442ae2bacbb" class="bulleted-list"><li style="list-style-type:disc">I included the case where the test outcomes are all <code>false</code> to account for when the vertices are accounted in both winding orders.</li></ul></li></ol><h2 id="a92915a3-19c9-400d-b686-e47d4591ab3c" class="">Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle.</h2><p id="200b1288-50bb-4e81-b53d-ba83ce027116" class="">My algorithm is no worse than one that checks each sample within the bounding box of the triangle because the <code>for</code> loop only loops over the bounding box of the triangle using the minimum and maximum <code>x</code> and <code>y</code> values of the vertices.</p><h2 id="d630919a-9dca-4b81-8113-cfadc135f0ef" class="">Show a <em>png</em> screenshot of <em>basic/test4.svg</em> with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.</h2><figure id="b9091726-d942-4556-8d43-3ee62c9ec887" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_1-30_18-44-43.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_1-30_18-44-43.png"/></a></figure><h1 id="47a91b39-4d77-4c88-9568-096a10c30a15" class="">Task 2</h1><h2 id="dea75ea0-6b61-494d-ba51-b420e4780adc" class="">Walk through your supersampling algorithm and data structures. </h2><h3 id="516ed4f9-c41a-4584-a0b8-ba7c4338131e" class="">Data Structures: </h3><ul id="d37cd76c-b0ee-403f-9fbf-d41065e6a766" class="bulleted-list"><li style="list-style-type:disc"><code>sample_buffer</code> <ul id="f3674563-82d2-4d43-891c-19986a3dff75" class="bulleted-list"><li style="list-style-type:circle">In order to support supersampling, I had to increase the size of the <code>sample_buffer</code> to represent an image with a larger resolution than the actual frame buffer. </li></ul><ul id="4d7829c9-0b44-496c-8e5b-e906a1fc7688" class="bulleted-list"><li style="list-style-type:circle">Upon changing the <code>sample_rate</code>, the <code>sample_buffer</code> size was changed to <code>height * width * sample_rate</code> , where <code>height</code> and <code>width</code> are that of the framebuffer.</li></ul><ul id="a14bcbdf-2569-4f78-8f55-d30135c25511" class="bulleted-list"><li style="list-style-type:circle">The sample buffer was mentally divided into <code>sample_rate</code>  subsections, each of size <code>height * width</code>. Each subsection stored a sample for the corresponding point on the frame buffer. </li></ul><ul id="bb8e7787-5d8c-4490-86ea-233c2ec85f99" class="bulleted-list"><li style="list-style-type:circle">For example, for <code>sample_rate</code> = 4, the 4 samples within point (x, y) can be accessed via these indices<ul id="da493687-8149-422b-984d-01c3e255b555" class="bulleted-list"><li style="list-style-type:square"><code>sample_buffer[0 * width * height + y * width + x]</code></li></ul><ul id="23af8556-d9c9-4c05-bba5-2de8cbb8fe69" class="bulleted-list"><li style="list-style-type:square"><code>sample_buffer[1 * width * height + y * width + x]</code></li></ul><ul id="e6df9680-3569-42c8-a5d0-ee6111f545d7" class="bulleted-list"><li style="list-style-type:square"><code>sample_buffer[2 * width * height + y * width + x]</code></li></ul><ul id="35e7aa14-9305-4b11-b79a-f3c6a61fbce3" class="bulleted-list"><li style="list-style-type:square"><code>sample_buffer[3 * width * height + y * width + x]</code></li></ul></li></ul></li></ul><h3 id="134b115d-e46f-48fd-bdfe-e8f229ee45ae" class="">Super Sampling Algorithm</h3><p id="043562c6-1db2-4387-a995-474ebe756874" class=""><code>rasterize_triangle</code></p><ol type="1" id="d7e6bad6-e905-4e7d-8083-803d6542daed" class="numbered-list" start="1"><li>I found the minimum and maximum <code>x</code> and <code>y</code> values out of the given vertices to find the bounds of sampled pixels.</li></ol><ol type="1" id="21cb0605-3f3a-466e-8a29-821fdc9b9264" class="numbered-list" start="2"><li>I ran a nested <code>for</code> loop over all combinations of <code>x</code> and <code>y</code> pixel values between <code>x_min</code> and <code>x_max</code> and <code>y_min</code> and <code>y_max</code>.</li></ol><ol type="1" id="1b8e3345-4dc4-415b-93b0-9feef303b5ed" class="numbered-list" start="3"><li>For each pair of <code>(x, y)</code> pixel values, I ran another nested <code>for</code> loop to have counters spanning <code>[0, sqrt(sample_rate)]</code> for both the <code>x</code> and <code>y</code> pixel values. At each value, I calculated the actual <code>x</code> and <code>y</code> values in the middle for each sub-pixel using <code>x_counter</code>, <code>y_counter</code>, and the actual <code>x</code> and <code>y</code> values using:<ul id="4f38d1b0-af6b-4414-a3ed-a4f22181e508" class="bulleted-list"><li style="list-style-type:disc"><code>float curr_x = (float) x_counter * increment + x + increment * (float) 0.5;</code></li></ul><ul id="e6cad0bd-9e1f-4de5-bded-6908f13c2e07" class="bulleted-list"><li style="list-style-type:disc"><code>float curr_y = (float) y_counter * increment + y + increment * (float) 0.5;</code></li></ul></li></ol><ol type="1" id="a9472cee-495b-4eac-a2b9-5fa2e9dc86df" class="numbered-list" start="4"><li>I ran three line tests on these actual points. If all three line tests outcomes are the same (all <code>true</code> or all <code>false</code>), that means the point is inside the triangle, so we will fill the pixel with the given color. If not, we won&#x27;t render it.</li></ol><ol type="1" id="84610f58-a1e7-4e86-ac41-8500b37633cd" class="numbered-list" start="5"><li>I stored the sample’s color value at the correct place in the <code>sample_buffer</code>, according to the indexing described in the previous section.</li></ol><p id="6dc50cdc-f393-43da-8140-6145fca36f07" class=""><code>resolve_to_framebuffer</code> </p><ol type="1" id="e18e5795-3d6c-451f-bd66-d8745d802566" class="numbered-list" start="1"><li>I ran a nested <code>for</code> loop over all combinations of <code>x</code> and <code>y</code> pixel values between the <code>width</code> and <code>height</code> of the framebuffer.</li></ol><ol type="1" id="922d3835-7865-4a4b-9d39-43a8939d7e42" class="numbered-list" start="2"><li>For each pair of <code>(x, y)</code> pixel values, I ran another  <code>for</code> loop over counters spanning <code>[0, sample_rate]</code> to iterate over all the subsamples in the pixel. </li></ol><ol type="1" id="e07c9890-d7ac-456a-9344-4f50ee10c10d" class="numbered-list" start="3"><li>At each value, I indexed into the corresponding sample using the method described in the <code>sample_buffer</code> data structures section, and added the color of each sample for the pixel together. </li></ol><ol type="1" id="6bd6f00a-111c-4bba-b0fe-3739299e0456" class="numbered-list" start="4"><li>After running through <code>sample_rate</code>  iterations for the pixel to get all the samples, I divided the sum of sample colors by <code>1 / sample_rate</code> to get the average color for the pixel. </li></ol><ol type="1" id="dbb8a3c8-0c59-43e0-90ed-bfc78f06afb5" class="numbered-list" start="5"><li>I then wrote that average color into the frame buffer at <code>(x, y)</code> .</li></ol><h2 id="e2f36fe7-af4f-4d5e-9bcc-0bccfcd80898" class="">Why is supersampling useful? / Explain how you used supersampling to antialias your triangles.</h2><p id="a698d067-a7aa-4545-b9bf-f87df19a84de" class="">According the Nyquist Theorem, we get no aliasing if no frequencies in the image are less than the half the sampling frequency. Supersampling is useful because it is a method of approximating the 1-pixel box-filter that serves as a lowpass filter. The 1-pixel box filter can be used to eliminate frequencies above half the sampling frequency. Therefore, we can achieve antialiasing with super sampling.</p><h2 id="37854667-de1e-4b7f-8635-271553889dbb" class="">What modifications did you make to the rasterization pipeline in the process? </h2><p id="7db58006-45ff-40b2-a5b6-3d37b5e170e7" class="">To support supersampling, I changed how the <code>sample_buffer</code> is resolved to the framebuffer because it was no longer a one to one relation. <code>resolve_to_framebuffer</code> now has translate between two resolutions to account for a changed sampling rate.</p><h2 id="08a2ef18-e70f-4711-bc3c-762c024c63ef" class="">Show <em>png</em> screenshots of <em>basic/test4.svg</em> with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. </h2><figure id="8f38278b-b034-457f-9453-8fcc30f3ed14" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_14-51-11.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_14-51-11.png"/></a><figcaption>sample_rate = 1</figcaption></figure><figure id="1f3a8195-5d5b-42e3-8487-f5e32d1d7321" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_14-51-13.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_14-51-13.png"/></a><figcaption>sample_rate = 4</figcaption></figure><figure id="673b607f-81ba-480e-b4d6-957df265ab37" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_14-51-14.png"><img style="width:720px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_14-51-14.png"/></a><figcaption>sample_rate = 9</figcaption></figure><figure id="d41c4626-e284-44b9-b32a-b155c943d297" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_14-51-15.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_14-51-15.png"/></a><figcaption>sample_rate = 16</figcaption></figure><h2 id="0545db30-8a29-40a0-b596-739d4c9e92c7" class="">Explain why these results are observed.</h2><p id="c3e398bf-179a-4af2-aa91-b8c33b901d73" class="">These results are observed because we are taking more sub-pixel samples when the <code>sample_rate</code> goes up, so more surrounding pixels get more red added to them as the sample rate goes up, hence the blurring effect. </p><h2 id="52df1244-167c-4385-ad6a-c6644f6528c6" class="">Problems during this task and how I fixed them </h2><p id="d8a0a748-39e3-4be9-ac70-a657450045ee" class="">I had white lines breaking up some of the tests with adjacent triangles in them like task 3. This was because I did not put &gt;= in the line test, I just put &gt;. When I put =, the white lines disappeared.</p><p id="541246d4-c3f4-4e19-8e65-544adb17432c" class="">I was stuck on test 6 because I was not accounting for both winding orders of the vertices. I was not sure how to do it, butI office hours I learned that if the vertices were described in the opposite winding order, all of the line tests would return <code>false</code>  because their results would all be negative. Therefore, accounting for all <code>true</code> and all <code>false</code> in the line test fixed the problem.</p><h1 id="17bb183d-ae51-4ad3-b3b5-2badcd5e8555" class="">Task 3</h1><figure id="84beb978-1c20-4d43-b891-f2bdccd4ffb6" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-10_15-11-58.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-10_15-11-58.png"/></a></figure><p id="679794e4-f72d-4eb0-be19-909afef0e4a3" class="">The robot is dabbing :)</p><h1 id="7e8c9b3e-ed2c-46e8-81e8-63d2ed9f86e5" class="">Task 4</h1><h2 id="13ceffcf-e5c7-45cd-ab38-116028ac24df" class="">Explain barycentric coordinates in your own words and use an image to aid you in your explanation. One idea is to use a <em>svg</em> file that plots a single triangle with one red, one green, and one blue vertex, which should produce a smoothly blended color triangle.</h2><p id="18c3b229-817b-443d-9e17-d4d567a972fa" class="">Barycentric coordinates are a coordinate system that can represent all the points in a triangle in terms of the vertices of the triangle. </p><p id="87487976-3762-45f8-b911-1ff0d7e06817" class="">Each location inside the triangle is represented as a constants (α, β, γ) that represent a linear combination that expresses the relative distance of the point to each vertex in the triangle. </p><p id="b6ed32fc-c1ca-4ee7-a4e0-62850a15fcc8" class="">For example, if each vertex represented red, green, and blue. All of the coordinates would be some combination of red, green, and blue, with the weight of each color based on the distance from each vertex. They could all be represented as a linear combination of the colors, as shown in the picture.</p><figure id="eb94e547-9686-4fb2-ae86-fc3143921d1e" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_15-0-14.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-5_15-0-14.png"/></a></figure><h2 id="ab66cb15-fbd5-476e-97c1-685dc559cfe0" class="">Show a <em>png</em> screenshot of <em>svg/basic/test7.svg</em> with default viewing parameters and sample rate 1. </h2><figure id="22133aa7-76f9-409c-8809-e28021fcf4cf" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-6_17-58-18.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-6_17-58-18.png"/></a></figure><h2 id="493585b0-ac1f-4da9-a35f-45ad16be0a62" class="">Problems during this task and how I fixed them </h2><p id="33316dd0-eed8-4846-bc54-a85a4559c2f6" class="">I had a bug where I had a white line going through the circle in one place due to an edge error. In office hours, I realized that it was a floating point error somewhere, but I was unable to find it. So instead of fixing it directly, I set a larger threshold for the line test where L test values with an absolute value of less than 0.01 are considered passing the line test. </p><h1 id="3e40aaab-9aab-42a3-85ff-1a696d37aa24" class="">Task 5</h1><h2 id="02d8ba1b-d6d4-4231-8948-07ea66c86574" class="">Explain pixel sampling in your own words and describe how you implemented it to perform texture mapping. </h2><p id="f6c8b8dd-c3aa-40af-8333-b947357425f3" class="">Pixel sampling is used to map pixels to texels when texture mapping. I implemented it by:</p><ol type="1" id="5974d3d4-6dbf-4435-8bf1-c027705f1a2c" class="numbered-list" start="1"><li>Converting the pixel value to be sampled to barycentric coordinates and then passing the coordinates to the sampling function as the <code>uv</code> vector with <code>u</code> representing <code>x</code> and <code>v</code> representing <code>y</code>.<ul id="233171e9-8562-4f95-b9f1-a16730b10f49" class="bulleted-list"><li style="list-style-type:disc">I converted to barycentric coordinates using the equations in the lecture slides</li></ul></li></ol><ol type="1" id="528003f5-8de8-4831-a415-db23765d27a5" class="numbered-list" start="2"><li>In the <code>sample</code> function, I scaled up the <code>u</code> value by the <code>mip.width -1</code> and used  <code>mip.height - 1</code> for the <code>v</code> value.</li></ol><ol type="1" id="1fc1fc25-79a3-4bdc-828f-efeaf063bef5" class="numbered-list" start="3"><li>I decided how to convert the continuous <code>(u, v)</code> value to integer texel coordinates depending on the sampling method (see the section below).</li></ol><ol type="1" id="aa7e9dc0-e30b-4603-82fb-dab495ae4800" class="numbered-list" start="4"><li>I used <code>get_texel</code> to get the texel for the corresponding integer coordinate(s) and linearly interpolated them together if necessary.</li></ol><h2 id="93088bdb-5e0a-45fb-9d28-88a38a75a84a" class="">Briefly discuss the two different pixel sampling methods, nearest and bilinear.</h2><p id="13a9cad3-c397-44bf-8004-76123368c0fa" class=""><mark class="highlight-yellow_background"><strong>Nearest</strong></mark> takes the continuous pixel value and simply rounds to the nearest texel and samples the color located at that pixel. </p><p id="c91ecc5c-8311-4d57-bf0e-de71d3feb7e4" class=""><mark class="highlight-yellow_background"><strong>Bilinear</strong></mark> takes the continuous pixel values, finds the four nearest texel values (using <code>floor</code> and <code>ceil</code> on the continuous pixel values’ <code>x</code> and <code>y</code> coordinates) and linearly interpolates them together using their relative distances, and outputs the combined result. </p><h2 id="498050f0-08bd-4d7d-864b-88fca79dbd6c" class="">Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. </h2><figure id="89802231-f64b-497b-aa25-99abfeaa8bd4" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_14-38-42.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_14-38-42.png"/></a><figcaption>Nearest sampling at 1 sample per pixel </figcaption></figure><figure id="64463397-0636-4847-9c3a-6bb0170aee12" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_14-38-45.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_14-38-45.png"/></a><figcaption>Bilinear sampling at 1 sample per pixel </figcaption></figure><figure id="5efc20ac-c6b0-464d-8da2-fa2b7d5a9a9a" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_14-38-55.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_14-38-55.png"/></a><figcaption>nearest sampling at 16 samples per pixel </figcaption></figure><figure id="cbfff333-d0a7-4ec2-a97e-f750789ac8cd" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_14-38-57.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_14-38-57.png"/></a><figcaption>Bilinear sampling at 16 samples per pixel </figcaption></figure><h2 id="70508614-ec88-4e85-96ea-c72cd94d9bc6" class="">Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.</h2><p id="07ee6b99-f55d-4e20-ad9e-cfd8882cb5f6" class="">The edges in the bilinear sampling pictures look a bit smoother than nearest sampling, but as the sampling rate increases the difference is less prominent.</p><p id="c398404c-fd99-472e-beca-0980ba2bfe93" class="">There will be a larger difference between the two methods in textures with higher frequencies/two very different colors next to each other because bilinear sampling averages colors together and will smooth out harsh contrast.</p><h2 id="f92c3383-3627-40f7-abc6-63eb9730cee7" class="">Problems during this task and how I fixed them </h2><p id="3a2f3330-edd1-4b2b-b5b8-bb97bce4ed1a" class="">I had a bug where little cyan spots would appear on the images. In office hours I realized this was because I was multiplying <code>u</code> and <code>v</code> by <code>mip.width</code> and <code>mip.height</code>  when I was supposed to be subtracting 1 from them. I was actually indexing outside of the mipmap because of this, hence the wrong colors.</p><p id="babecebd-bd24-4fe4-81bc-85089a262735" class="">I also had another bug with black lines appearing at the bottom and top of the seal for task 5 for bilinear sampling. In Office Hours, I learned that this was because I was rounding incorrectly for finding the four nearest pixels to <code>(u, v)</code> because I was trying to do it manually instead of using <code>floor</code> and <code>ceil</code>. After switching to those functions, the lines went away. </p><h1 id="a0ed128a-e301-40d0-9df1-4986cbefad71" class="">Task 6</h1><h2 id="889a94fd-8b11-47ce-93d9-745d592607a3" class="">Explain level sampling in your own words. </h2><p id="cd7a018a-050d-4d45-b207-a8fa62663930" class="">Level sampling involves storing multiple versions of the same image at different resolutions as “levels.” When actually sampling textures to create an image, each sample would sample from the mipmap with a resolution closest to screen sampling rate of the actual size of the “footprint” that the texture sample will fill.</p><h2 id="36a5e0e7-45af-4aa9-b74e-f1415e582289" class="">Describe how you implemented level sampling for texture mapping</h2><ol type="1" id="b18a2be4-caaf-491e-a97f-fc3edfe810a5" class="numbered-list" start="1"><li>I implemented <code>get_level</code>, which found a continuous value for the appropriate mipmap level by estimating the actual size of the texture footprint using coordinates of neighboring samples <code>(x + 1, y)</code> and <code>(x, y + 1)</code> as described in lecture slides. <ol type="a" id="e4553873-81d9-4d0b-a301-fe29034efa07" class="numbered-list" start="1"><li>I clamped the levels between <code>0</code> and <code>mipmap.size() - 1</code></li></ol><ol type="a" id="291f68c3-950e-45c1-9b4a-f772a829d5d2" class="numbered-list" start="2"><li>I ran the line test on neighboring samples, and if they were outside of the triangle I clamped the neighboring values passed into get_level to just be <code>(x, y)</code> .</li></ol></li></ol><ol type="1" id="7dab45a4-b412-4400-bdbf-63535c1379ee" class="numbered-list" start="2"><li>After retrieving the level, for <code>level_nearest</code>, I just rounded the continuous value and sampled from that rounded level mipmap. For linear level sampling, I used <code>floor</code> and <code>ceil</code> to find and sample from the two closest mipmaps and linearly interpolated the samples’ colors together using the fractional component of the continuous level as the <code>x</code> constant in <code>lerp(x, v0, v1)</code> .</li></ol><h2 id="1b298cb6-7349-4f5a-9a72-066e6be60397" class="">Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.</h2><h3 id="bcce0d6b-bf71-439e-8d5a-9753fab9e47b" class="">Pixel Sampling</h3><ul id="038b115f-f463-4ca8-b93d-626d754aff35" class="bulleted-list"><li style="list-style-type:disc">Speed: Bilinear sampling needs to process more texels per pixel (in my implementation, 4 texels per pixel) so its a bit slower than simple rasterization. But nearest sampling does not really impact speed as much compared to simple rasterization because all it only requires one access into the texture map per pixel.</li></ul><ul id="4318660b-b8a5-4698-949a-e10548e7b26c" class="bulleted-list"><li style="list-style-type:disc">Memory usage: Uses more memory than simple rasterization because need to store texture image.</li></ul><ul id="8b98962e-d8ad-45fd-8abb-2cfcb4109e82" class="bulleted-list"><li style="list-style-type:disc">Antialiasing Power: Bilinear sampling, similar to sampling per pixel sampling, can smooth jaggies.</li></ul><h3 id="1101f777-a399-4187-89e9-98b71ab4cb55" class="">Level Sampling</h3><ul id="fa0c48f3-7554-48fb-ab02-7cb6a158101d" class="bulleted-list"><li style="list-style-type:disc">Speed: Faster than supersampling because it has less computation and can utilize texture caching</li></ul><ul id="7b043692-4177-4b1e-b6f4-e055a5497278" class="bulleted-list"><li style="list-style-type:disc">Memory usage: Uses more memory than pixel sampling because we need to store the same texture image at multiple resolutions. However, it is stored in a hierarchy for efficiency.</li></ul><ul id="8569319b-3d68-4f2b-b789-22ff4af13dc8" class="bulleted-list"><li style="list-style-type:disc">Antialiasing Power: removes aliasing caused by texture minification (when there is only one pixel sample that corresponds to multiple texel samples)</li></ul><h3 id="13964ec1-0941-4a99-92d4-06a8ad214d79" class="">Sampling per Pixel Sampling</h3><ul id="b58b319d-3034-44fc-b91e-ab71ec40fb66" class="bulleted-list"><li style="list-style-type:disc">Speed: slower, have to iterate over all the subsamples at <code>sample_rate</code> times per pixel.</li></ul><ul id="b7d69a2b-791d-45c1-8226-05784c51d06e" class="bulleted-list"><li style="list-style-type:disc">Memory usage: Uses  <code>sample_rate</code>  times more memory than only sampling once per pixel</li></ul><ul id="cac5e4d4-ebd9-42bf-a00c-f1582ade7243" class="bulleted-list"><li style="list-style-type:disc">Antialiasing Power: Removes jaggies by effectively sampling at more than twice the signal frequency</li></ul><h2 id="4846bec9-86cf-4ada-add0-f06184928485" class="">Comparing Images</h2><p id="b8d7ac23-4673-4607-a5e1-62316e4525d3" class="">
+</p><figure id="0fc3775d-2f87-438a-bd69-796ca2a9c430" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-16-4.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-16-4.png"/></a><figcaption>L_ZERO, P_NEAREST</figcaption></figure><figure id="ac2530a0-3fe8-4f05-87c9-bb484194cf92" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-16-4%201.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-16-4%201.png"/></a><figcaption>L_ZERO, P_LINEAR</figcaption></figure><figure id="68451d45-d496-4fad-abe8-1579dcc2b137" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-16-12.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-16-12.png"/></a><figcaption>L_NEAREST, P_NEAREST</figcaption></figure><figure id="8e86daf0-a857-4698-beec-c90beaa35188" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-16-17.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-16-17.png"/></a><figcaption>L_NEAREST, P_LINEAR</figcaption></figure><figure id="36e8d75b-c4f3-4c9a-9aa0-fe11590996a8" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-17-35.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-17-35.png"/></a><figcaption>L_LINEAR, P_NEAREST</figcaption></figure><figure id="2b5e158d-bdae-4a36-8395-d5d5fc5873a1" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-17-37.png"><img style="width:1600px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20a4ee82641b714ea9b188c030c5be074d/screenshot_2-7_16-17-37.png"/></a><figcaption>L_LINEAR, P_LINEAR</figcaption></figure><h2 id="934f3efe-289f-441d-8f75-c1efd2fb190a" class="">Problems during this task and how I fixed them </h2><p id="5b22f581-1eea-4b21-b4e1-103e165cd13a" class="">I also had another bug with black lines appearing at the bottom and top of the seal for task 5 for bilinear level sampling. In Office Hours, I learned that this was because I was rounding incorrectly to find the two nearest levels because I was trying to do it manually instead of using <code>floor</code> and <code>ceil</code>. After switching to those functions, the lines went away. </p><p id="dab985bd-c8a5-4ba6-b4e2-19e58df0ced1" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
