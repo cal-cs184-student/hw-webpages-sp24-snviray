@@ -1,7 +1,677 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Homework 2 index.html here
-	</body>
-</html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS 184/284A: Computer Graphics and Imaging, Spring 2024 </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="af614c1b-2929-4b1e-bc8b-7c6047c32a8f" class="page sans"><header><h1 class="page-title"><strong>CS 184/284A: Computer Graphics and Imaging, Spring 2024 </strong></h1><p class="page-description"></p></header><div class="page-body"><p id="b44f0e57-3647-4b78-8413-e0d08efe37ad" class=""><strong>Project 2: Mesh Edit</strong></p><p id="ba2b4c4d-50f4-48d7-8fd2-a4f26ecf101e" class=""><strong>Sara Viray</strong></p><p id="f55a9b4c-5b7f-4ff6-9967-5eaf6a2220bf" class=""><a href="https://cal-cs184-student.github.io/hw-webpages-sp24-snviray/hw2/index.html">https://cal-cs184-student.github.io/hw-webpages-sp24-snviray/hw2/index.html</a></p><h1 id="7fce48d2-1468-4b29-ba74-aeae96b6c31a" class="">Overview</h1><p id="0daf5758-0b82-4337-8c5e-ed03e07e7fbe" class="">For this project, I implemented Bezier curves and Bezier surfaces,  three triangle mesh operations and loop triangle mesh loop subdivision. </p><p id="4215bc6d-1dde-46ac-9028-e13841a66db2" class="">From this project, I learned how curves and surfaces are drawn recursively. I also learned how 3D meshes are represented in data structures and how those structures can be manipulated to edit the mesh.</p><h1 id="b56a7044-94be-4482-9628-c7f69a05def2" class="">Part 1: Bezier Curves with 1D de Casteljau Subdivision</h1><h2 id="4816032e-23f5-4814-9cf7-9c68e9c2324f" class="">Briefly explain de Casteljau&#x27;s algorithm </h2><ol type="1" id="0bae4a74-9837-426a-8634-77ee17651838" class="numbered-list" start="1"><li>Given <code>n</code> control points, use linear interpolation to insert new points between each consecutive pair of control points with a sliding parameter <code>t</code>. </li></ol><ol type="1" id="342ca6e1-adda-4d1f-a7ca-04c4e44bbbf8" class="numbered-list" start="2"><li>Recursively do step 1 on the new set of points until subdivision is no longer possible (only one new point remains).</li></ol><ol type="1" id="9b481a3d-94e0-42ab-b8bf-ead85a45d526" class="numbered-list" start="3"><li>That single point lies on the curve. Repeat the entire algorithm for all values of <code>t</code> in the interval [0, 1]. </li></ol><h2 id="efe13182-34bf-48de-b50d-f16df28101a0" class="">Explain how you implemented de Casteljau’s algorithm in order to evaluate Bezier curves.</h2><p id="ca2dbdf4-676c-49ac-9e64-2161c43e8fa4" class="">I implemented the recursive step of de Casteljau’s algorithm by running the linear interpolation function on each consecutive pair of control points to find the new point, compiling them into a vector, and returning the vector.</p><h2 id="22bad9a3-45bf-4e13-a739-e463cee8e3d3" class="">Show screenshots of each step / level of the evaluation from the original control points</h2><figure id="a802215f-d485-4e37-b4b8-fbc2880de9ba" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.48_PM.jpeg"><img style="width:1904px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.48_PM.jpeg"/></a></figure><figure id="cfd7cd8b-8138-43b7-9e36-27a62a54143d" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.48_PM_(1).jpeg"><img style="width:1904px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.48_PM_(1).jpeg"/></a></figure><figure id="2992db27-15fd-4c3a-b187-3add9527902e" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.48_PM_(2).jpeg"><img style="width:1898px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.48_PM_(2).jpeg"/></a></figure><figure id="182f775e-c2ad-4b69-a534-490873dcf133" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.48_PM_(3).jpeg"><img style="width:1908px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.48_PM_(3).jpeg"/></a></figure><figure id="dc0c7350-db3d-426f-a5d0-280781998058" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.49_PM_(1).jpeg"><img style="width:1900px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.49_PM_(1).jpeg"/></a></figure><h2 id="be56db06-c21f-4bdc-a6e3-83c64afc9b99" class="">Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter <em>t</em> via mouse scrolling.</h2><figure id="ca0ec171-2c85-422c-81a9-282c454eef9d" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.50_PM.jpeg"><img style="width:1912px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.50_PM.jpeg"/></a></figure><h1 id="0cdb3271-7f6c-4042-a801-1262fea9f864" class="">Part 2: Bezier Surfaces with Separable 1D de Casteljau</h1><h2 id="f9602af0-d90b-4fe8-bae4-f65b0c478c73" class="">Briefly explain how de Casteljau algorithm extends to Bezier surfaces</h2><p id="8d7f97b1-0f53-4d37-9b21-5352ece3a69e" class="">The Casteljau algorithm extends to Bezier surfaces by understanding surfaces to have a 4x4 array of control points that create 4 parallel Bezier curves. Points on the parallel Bezier curves are four control points for another Bezier curve that lies orthogonally to all four Bezier curves. Therefore, the Casteljau algorithm can be used to evaluate all of the Bezier curves that represent a Bezier surface.</p><h2 id="22d39872-6b8c-4439-9d02-0346fbd48229" class="">Explain how you implemented de Casteljau’s algorithm in order to evaluate Bezier surfaces.</h2><ol type="1" id="e7cdb950-af5f-4048-87f4-3cd1a05cb7f7" class="numbered-list" start="1"><li>Extend the de Casteljau recursive step I implemented in Part 1 to three dimensions by using <code>Vector3D</code> to do linear interpolation.</li></ol><ol type="1" id="7180dcfa-b0f0-4d75-854e-e426d33c33b7" class="numbered-list" start="2"><li>Define a helper function that calls the recursive step recursively on a set of control points until one control point remains. </li></ol><ol type="1" id="5acb924e-f82b-42f2-9d23-dc3a3043e677" class="numbered-list" start="3"><li>Use the helper function to find four points on the parallel Bezier curves that make up the four control points for the orthogonal Bezier curve. </li></ol><ol type="1" id="fabd2ee5-8106-4323-9c7d-3514e37a1b10" class="numbered-list" start="4"><li>Use the helper function again using the four points found in step 3 as control points to find the point that lies along the orthogonal Bezier curve. This point also lies on the Bezier surface. </li></ol><h2 id="2782892d-d890-4e38-898d-2b7fcfb7e0bb" class="">bez/teapot.bez</h2><figure id="0fda738e-1d3b-4057-bb6d-8e60bd4d7d35" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.53_PM.jpeg"><img style="width:1836px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_2.53_PM.jpeg"/></a></figure><h1 id="0ca961cf-86af-4ae1-896c-46518c1f2c77" class="">Part 3: Area-Weighted Vertex Normals</h1><h2 id="860cca61-9454-4106-8019-681da7b94206" class="">Briefly explain how you implemented the area-weighted vertex normals</h2><ol type="1" id="0306bbf5-89b0-4f23-92ce-7509026106a0" class="numbered-list" start="1"><li>Iterate over all neighboring triangles by find half-edges associated with them by circling around the vertex using <code>h→twin()→next() </code>until arriving back at the original half-edge. </li></ol><ol type="1" id="9767a9a0-2e6b-4649-a053-258244a56312" class="numbered-list" start="2"><li>For each triangle, get it’s normal by getting it from it’s face and add it to a vector of normals. Then normals taken from the face are already “unit face normals (compute via the area vector)”, so I don’t need to manually weight them by area.</li></ol><ol type="1" id="d745240f-c0b8-4053-a2a4-525040a45c79" class="numbered-list" start="3"><li>Add all the normals together and divide them by the amount of normals in the vector to average them. </li></ol><h2 id="76a58cb1-9845-42f0-a574-d49f727db433" class="">teapot.dae flat shading</h2><figure id="271e6ee7-78a2-4d99-a60e-f3261033a122" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.07_PM.jpeg"><img style="width:1612px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.07_PM.jpeg"/></a></figure><h2 id="2c6fe1b0-ee4b-4137-8a7c-e8ba37eb5d17" class="">teapot.dae Phong shading</h2><figure id="e74f886a-6e3a-4556-85bf-6fb9f4d5d093" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.07_PM_(1).jpeg"><img style="width:1614px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.07_PM_(1).jpeg"/></a></figure><h1 id="361f2864-b9e0-4dda-9181-0c0154a4a36d" class="">Part 4: Edge Flip</h1><h2 id="01b064c4-d803-4959-ac0c-e3dc7084b4af" class="">Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used</h2><p id="c869179e-7b2b-4f08-a26b-ba174d8403e4" class="">I was able to implement edge flip smoothly by following the spec’s suggestion of exhaustively listing out all half-edges, vertices, faces, and edges and their components before and after the flip.</p><p id="fce2c856-e9b7-4520-a626-d9a1151a1455" class=""><br/>It was particularly helpful for me to label all of the halfedges so I could just assign them variables in the code to make debugging straight forward. I labelled them like this.<br/></p><figure id="5bf844a4-be74-4f5d-a05e-c33b53cea7c1" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.19_PM.jpeg"><img style="width:1164px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.19_PM.jpeg"/></a></figure><p id="d74078a3-e579-4c4f-9907-e09c5a4ce552" class="">Rather than run a for loop or while loop to access these edges, I wrote how to access them out and just assigned the variables.</p><ol type="1" id="0aef4e52-5ca1-4edd-866c-126ce76a15b5" class="numbered-list" start="1"><li><mark class="highlight-default">e0→half_edge</mark></li></ol><ol type="1" id="4dfa8e49-26cb-4f16-a1e1-b2ce06733d40" class="numbered-list" start="2"><li>e0→half_edge→next→half_edge</li></ol><ol type="1" id="964ab77c-258b-41fb-978d-7b8bd18087b0" class="numbered-list" start="3"><li>e0→half_edge→next→next→half_edge</li></ol><ol type="1" id="a037146a-8a3a-4629-8298-675a1778ee5b" class="numbered-list" start="4"><li><mark class="highlight-default">e0→twin→half_edge</mark></li></ol><ol type="1" id="efa16b62-5fe1-4d2f-b178-286ade116b68" class="numbered-list" start="5"><li>e0→twin→half_edge→next→half_edge</li></ol><ol type="1" id="ce0cfb59-a8f3-4f26-81a3-e2f7d4f8c2f7" class="numbered-list" start="6"><li>e0→twin→half_edge→next→next→half_edge</li></ol><p id="2f97bb20-cf2d-402b-b7e8-2b9227cae0cd" class="">After that, I wrote a list of where all the label’s pointers should be pointing, wrote it in code, proofread, and flipping worked on the first try. </p><h2 id="40740a4a-529a-42d1-85f5-179ceaefc862" class="">Show screenshots of a mesh before and after some edge flips</h2><figure id="835b86f8-2d1f-4301-a7ed-ce04e4583310" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.23_PM.jpeg"><img style="width:1888px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.23_PM.jpeg"/></a></figure><figure id="e24ce235-bdb6-4d10-99ec-8c3e14d6119e" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.25_PM.jpeg"><img style="width:1816px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.25_PM.jpeg"/></a></figure><h1 id="95a7e8f1-1f9f-426a-ae9d-18d8748dcf9d" class="">Part 5: Edge Split</h1><h2 id="6e97ab56-9895-4a78-9522-1396ba222222" class="">Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used. </h2><figure id="71b412d5-5472-41e5-82f0-cd27e2eaae37" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.29_PM.jpeg"><img style="width:1204px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.29_PM.jpeg"/></a></figure><p id="c0d0b600-2b45-4884-9f94-eadb2ca8072a" class="">I took a similar approach to the approach I explained in Part 4. I changed these few details though because this part involved adding new vertices, halfedges, edges, and faces </p><ul id="ca93b812-dae0-4a42-aac3-6174e504b563" class="bulleted-list"><li style="list-style-type:disc">I labeled all faces and edges in order to maintain simplicity as well.</li></ul><ul id="01ff8274-a510-4004-ae64-57d94923bdad" class="bulleted-list"><li style="list-style-type:disc">I decided not to delete any old components, but rather just reassign their pointers. I thought it worked easier with the labelling system I was using. </li></ul><ul id="a7f5e144-0a28-42fd-a48c-6893080d98cd" class="bulleted-list"><li style="list-style-type:disc">When I was assigning the label variables I created the new vertices, halfedges, edges, and faces that needed to be created. For Part 6, I also set their <code>isNew</code> attributes as <code>true</code>. </li></ul><ul id="d17cfc1a-cf5a-4288-8b97-1e62f8ca8bb7" class="bulleted-list"><li style="list-style-type:disc">I accidentally skipped 7 as a label. I decided to just leave the mistake in there because by that point I had already written a lot of code and the label names are arbitrary. </li></ul><h2 id="4e21d649-6ff4-49cc-8c2a-efa88c04538d" class="">Show screenshots of a mesh before and after some edge splits.</h2><figure id="414a37f4-f137-468b-b378-7c781b6a74c6" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.33_PM.jpeg"><img style="width:1766px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.33_PM.jpeg"/></a></figure><figure id="1482a07f-f2d7-48ef-a496-f3dbb0a47e0a" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.34_PM.jpeg"><img style="width:1782px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.34_PM.jpeg"/></a></figure><h2 id="acddb395-4bdd-4405-8af2-1f767bcfd86d" class="">Show screenshots of a mesh before and after a combination of both edge splits and edge flips.</h2><figure id="e7b71363-aae5-40e2-93fe-91b3c66e28e4" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.33_PM%201.jpeg"><img style="width:1766px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-17-24_at_3.33_PM%201.jpeg"/></a></figure><figure id="2529790c-e7ef-424d-a194-4c12363926e7" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.04_AM.jpeg"><img style="width:1910px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.04_AM.jpeg"/></a></figure><h2 id="e5e948c3-289b-4ba1-beae-1a3190774a12" class="">Write about your eventfully debugging journey, if you have experienced one. </h2><p id="4bfe60f0-fb87-47f3-af3a-09c56c7bf5fa" class="">I only noticed a weird bug in part 6 when the subdivision looked very off so I assumed there was a pointer issue. I noticed a typo I made in a <code>setNeighbor</code> function. </p><p id="c473b039-286e-474f-822c-95e776cee4f2" class="">I also noticed in that I was creating new vertices, half-edges, faces, and edges before checking if the edge was on a boundary, so I moved the check to the top of the function.</p><h1 id="29ea304b-ad16-4a22-b3f0-aa75e3f3121d" class="">Part 6: Loop Subdivision for Mesh Upsampling</h1><h2 id="8477e6ed-010e-4371-b3b0-1b858b0d8fb6" class="">Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.</h2><p id="e50bf54b-727b-415a-8aa3-c017f744ae4e" class="">I implemented loop subdivision mostly following the comments on the skeleton code. </p><ol type="1" id="a0c65000-92e4-447a-8383-4e3c4a29538c" class="numbered-list" start="1"><li>I iterated over all existing vertices using <code><strong>for</strong></code><code> (VertexIter v = mesh.verticesBegin(); v != mesh.verticesEnd(); v++)</code> . I set each <code>v→isNew = false</code> for every vertex in this loop. I also calculated the new position of each vertex and placed it in v→newPosition</li></ol><ol type="1" id="714765b4-d9cc-43f0-8c4c-f6abce2d8aab" class="numbered-list" start="2"><li>I iterated over all edges and calculated the location of the location of the new vertex when the edge is split. I set<code> e→isNew = false</code> for all vertices and also added all the edges to a <code>set</code> of existing edges. </li></ol><ol type="1" id="b8a7ebcc-3b57-4e72-91fb-ce8d9916c1f1" class="numbered-list" start="3"><li>I iterated over the set of existing edges and split each edge in the set. I also set the returned new vertex’s new position to the <code>e→newPosition</code> and set <code>newVertex→isNew = true</code></li></ol><ol type="1" id="75205c51-f9c2-489d-9164-caf848d55a25" class="numbered-list" start="4"><li>In <code>splitEdge</code>, I set the two edges that used to be the split edge <code>isNew = false</code>, and the two new edges became <code>isNew = true</code> . I also set <code>newVertex→isNew = true</code></li></ol><ol type="1" id="bf437ffa-ebb9-4619-80be-9acf5a28684b" class="numbered-list" start="5"><li>I iterated over all edges using <code><strong>for</strong></code><code> (EdgeIter e = mesh.edgesBegin(); e != mesh.edgesEnd(); e++ )</code> and if <code>e→isNew</code> and one of the vertices of the edge (<code>e→halfedge()→vertex()</code> or <code>e→halfedge()→twin()→vertex()</code>) is new and one is not, I flipped the edge.</li></ol><ol type="1" id="5ffade70-d0de-4229-a096-e42d7dfc3527" class="numbered-list" start="6"><li>I then iterated over all vertices with <code><strong>for</strong></code><code> (VertexIter v = mesh.verticesBegin(); v != mesh.verticesEnd(); v++)</code> and set each vertex’s actual <code>position</code> to the position stored in its <code>newPosition</code></li></ol><h2 id="84df63f8-5bd1-4547-a7e0-cece77dc85c3" class="">Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. </h2><p id="adfb353b-6fe3-4f17-96f3-bf114f336119" class="">Sharp corners and edges become rounder. </p><figure id="2014d812-1d5a-4d1e-9068-35adee5189c8" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.26_AM.jpeg"><img style="width:1902px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.26_AM.jpeg"/></a></figure><figure id="309e3e18-147e-4178-a10e-7ccffbf00b82" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.26_AM_(1).jpeg"><img style="width:1910px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.26_AM_(1).jpeg"/></a></figure><figure id="7a1a9077-d1d0-4fc9-ac36-ee7553619992" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.26_AM%201.jpeg"><img style="width:1910px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.26_AM%201.jpeg"/></a></figure><figure id="9cb41181-eaf7-418f-886e-63bba996c8bc" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.27_AM.jpeg"><img style="width:1916px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.27_AM.jpeg"/></a></figure><figure id="3e557ee4-e30c-4fb9-b875-a98832192784" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.30_AM.jpeg"><img style="width:1910px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.30_AM.jpeg"/></a></figure><figure id="f170a7cc-7712-4491-91ca-dd22e76db670" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.01_AM_(1).jpeg"><img style="width:1916px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.01_AM_(1).jpeg"/></a></figure><p id="596aa3a9-22d4-4282-bdbd-4ee56614a0b6" class="">After mesh subdivision, the whole mesh becomes rounder. Also since there are more faces, the shading is more spread out and looks more realistic. </p><h2 id="dabb3d4b-c97f-4728-8050-278bcc08821f" class="">What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?</h2><p id="da5c6728-bcca-41f3-8e3e-944f53508b00" class="">When I pre-split the exterior edges of the cube, it became less round upon loop subdivision.</p><figure id="f8ad629b-e88b-406e-8402-9a1d77b79a2d" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.29_AM.jpeg"><img style="width:1918px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.29_AM.jpeg"/></a></figure><p id="488e4107-ee7b-4f18-a053-4c75817c1fc5" class="">
+</p><h2 id="82b61117-32e6-4f1a-967c-36336f8c7114" class="">Load <code>dae/cube.dae</code>. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.</h2><p id="34933827-869e-439e-9c9c-2340567357d3" class="">The cube becomes asymmetric after repeated subdivisions because all of the vertices have varying degrees. Therefore, vertices with higher degrees will eventually become “sharper”, as there are more surrounding faces and subdivisions than other vertices with smaller degrees.</p><p id="c1522d36-5231-4689-8fea-6381dc149fe2" class="">When I made the number of vertices more even by splitting the edges so each face had the same pattern (each vertex had either 6 or 8 vertices), this pre-processing made the cube subdivide symmetrically</p><figure id="f3c4aa1b-a2d9-4204-ae15-1da0686cdc20" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.44_AM.jpeg"><img style="width:1914px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.44_AM.jpeg"/></a></figure><figure id="7c3bfcfd-2e38-425d-b7b3-0656ff8a82e9" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.44_AM_(1).jpeg"><img style="width:1912px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.44_AM_(1).jpeg"/></a></figure><figure id="8ee1da6c-b06a-42fb-850d-a1669ae218dc" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.44_AM_(2).jpeg"><img style="width:1910px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.44_AM_(2).jpeg"/></a></figure><figure id="ce5f3ded-9faa-4ac7-8cc0-30f00aef300d" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.44_AM_(3).jpeg"><img style="width:1908px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%20af614c1b29294b1ebc8b7c6047c32a8f/Image_2-20-24_at_10.44_AM_(3).jpeg"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
