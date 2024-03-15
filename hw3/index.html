@@ -1,7 +1,681 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Homework 3 index.html here
-	</body>
-</html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS 184/284A: Computer Graphics and Imaging, Spring 2024 </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5ae43689-9461-4722-8824-24ce5fec64cc" class="page sans"><header><h1 class="page-title"><strong>CS 184/284A: Computer Graphics and Imaging, Spring 2024 </strong></h1><p class="page-description"></p></header><div class="page-body"><p id="34b9a5a6-af11-4aff-a55f-932b3cdffe73" class=""><a href="https://cal-cs184-student.github.io/hw-webpages-sp24-snviray/hw3/index.html">https://cal-cs184-student.github.io/hw-webpages-sp24-snviray/hw3/index.html</a></p><p id="620f0385-83b9-45a0-83fa-ac654b1bb1e6" class=""><strong>Homework 3: Path Tracer</strong></p><p id="ade04d4e-0bca-4bc8-8cce-9b6b1ee262db" class=""><strong>Sara Viray</strong></p><h1 id="40da4442-81b7-4427-90f0-b556cd8c8986" class="">Overview</h1><h2 id="48e6dbe0-01cd-4db2-aadb-eecc755b96aa" class="">Part 1</h2><p id="a517850f-a6c2-40eb-a043-4846d9db8fd7" class="">In this part, I implemented ray generation and primitive intersection with triangles and spheres. </p><p id="5146f4db-595d-41bb-846f-a4b1a3865f0a" class="">My approach was just to copy the pseudocode I found on the lecture slides and in discussion.</p><p id="487fc2a1-94b9-43b6-95fa-067043a1ed90" class="">I did not understand this part very well at first, so I had a lot of bugs I had to return to in parts 3 and 4. </p><ul id="7ad5d2cf-a388-42a8-976d-fc48acf03581" class="bulleted-list"><li style="list-style-type:disc">I had a bug where I was not translating from world to camera space correctly this prevented the zero bounce light from showing up on CBbunny. I resolved it in Office Hours. </li></ul><ul id="0b5ccb2f-3e82-412d-a07b-1cab83bb9dd9" class="bulleted-list"><li style="list-style-type:disc">I had another bug where I was overwriting <code>max_t</code> in <code>has_intersect</code>, which caused weird dark triangles to appear on my wall in <code>CBbunny</code>. I only fixed this upon careful manual debugging</li></ul><h2 id="211a03a2-c653-494b-b89a-ecb3d94204c6" class="">Part 2</h2><p id="a4013c27-38b5-4da1-82ca-d6eed0524051" class="">In this part, I implemented BVH division and acceleration.</p><p id="239fdaeb-884d-48e4-88fb-c5352ac2093f" class="">My approach was to copy pseudocode on the lecture slides and hints in the spec. I only realized when I ran wall-e that sometimes my code had empty left or right children. I handled this in a logical and non-optimal way.</p><h2 id="3b9aadab-f402-457d-a3bb-25af5002f4bd" class="">Part 3</h2><p id="7bff8ccf-2b0f-46b3-b47a-049b38bcdfc4" class="">In this part, I implemented zero bounce and one bounce ray tracing. </p><p id="0d836217-32d9-4f24-8e25-688552bbb5e9" class="">Most of my bugs from this part had origins in part 2 and part 1. One bug that I had was in the f equation I divided reflectance by 2 PI instead of PI, which did not account for the fact that integrating over the hemisphere generated another factor of PI. This caused my images to be too dim. I resolved this in office hours.</p><h2 id="2771b123-5bf7-4ad8-bace-1cb22cdd3daa" class="">Part 4</h2><p id="af96c947-2fd1-477a-8b0b-cf5001f83342" class="">In this part, I implemented infinity bounce ray tracing and Russian Roulette. </p><p id="1d772eaa-6f4d-45fe-9cfa-13d890acb547" class="">Like part 3, most of my bugs from this part had origins in part 2 and part 1. But I did have one bug that kept the scenes looking too bright. In <code>sample_f</code>, I set pdf manually as <code>1 / (2PI)</code> instead of using <code>get_sample(&amp;pdf)</code>. I only fixed this upon manual debugging.</p><h2 id="887e5eb1-06b0-4b9a-be3e-9aad712bd3ad" class="">Part 5</h2><p id="98b18ecf-a45c-41f5-8ff5-2a1e910b8cd8" class="">In this part, I implemented adaptive sampling.</p><p id="d83c52dd-cbd0-4df1-a3f2-d0e042bfaf13" class="">I had a few minor floating point/casting bugs, but nothing too difficult.</p><h1 id="02593bbb-99e7-4d17-8ccd-c69b0f4ce601" class="">Part 1</h1><h2 id="237eac1a-5678-4886-9b7f-836f2bd9c379" class="">Walk through the ray generation and primitive intersection parts of the rendering pipeline.</h2><h3 id="49152ce8-52e8-48af-9a7b-bc178ace55d6" class="">Ray Generation</h3><ol type="1" id="d15e5c2f-fbea-4036-874e-15e3defec387" class="numbered-list" start="1"><li>I transformed the image coordinates to camera space by subtracting <code>0.5</code> from the <code>x</code> and <code>y</code> coordinates so that the center of the coordinates would be at (0,0).</li></ol><ol type="1" id="6004d460-bc07-4cd1-8bea-576e23905fbf" class="numbered-list" start="2"><li>I multiplied both coordinates by <code>tan(radians((hFov or vFov)/2)) * 2</code>  so that the top and bottom margins of the coordinates are correct. I now call them <code>sensorCoordinates</code>.</li></ol><ol type="1" id="8d08334d-9b8c-4f0e-8c51-d41c2bdf1aea" class="numbered-list" start="3"><li>I transformed the <code>sensorCoordinates</code> into camera space by multiply <code>c2w * sensorCoordinates</code></li></ol><ol type="1" id="26d17230-7fe6-4a07-b43d-edadae7442a8" class="numbered-list" start="4"><li>I initialized the ray with the origin as camera position and direction as transformed sensor coordinates. I set <code>min_t</code> to <code>nClip</code> and <code>max_t</code> to <code>fClip</code> and returned the ray.</li></ol><h3 id="60df3103-4825-49b9-b73b-bed64621b7f0" class="">Primitive Intersection (Sphere)</h3><p id="6a4d452c-628d-4b01-8da9-fa84d9da0ba8" class="">I first implemented helper function <code>test</code>  which checks for sphere intersections and return one or two intersection times.</p><ol type="1" id="32aecfab-6df7-4064-8de7-065c13ba6dff" class="numbered-list" start="1"><li>I first calculated the following values, where r.d is the ray’s direction, r.o is the ray’s origin,  o is the sphere’s origin, and r2 is the sphere’s radius squared.<ul id="e821671d-2388-4909-8ccf-8a2a6b7ed2af" class="bulleted-list"><li style="list-style-type:disc"> <code>dot(r.d, r.d);</code></li></ul><ul id="df2a858e-9b3d-4ea3-859f-edb54307fcb1" class="bulleted-list"><li style="list-style-type:disc"> <code>dot(2 * (r.o - o), r.d);</code></li></ul><ul id="5d242e21-1a7b-41f8-8092-36c108fb420e" class="bulleted-list"><li style="list-style-type:disc"><code>dot(r.o - o, r.o - o) - r2; </code></li></ul></li></ol><ol type="1" id="ece788ec-a22c-4376-b2b5-778817d46e51" class="numbered-list" start="2"><li>I checked the discriminant of these three values.<ol type="a" id="20d62ce5-d51e-4ef9-9da8-ca8c7fa84724" class="numbered-list" start="1"><li> if it was real. I calculated the t values as the solution to the quadratic formula using the above terms and</li></ol><ol type="a" id="e665b60e-470b-4201-b602-ad53c57615dd" class="numbered-list" start="2"><li>If it was not real, I returned false</li></ol></li></ol><p id="e6facd55-7530-43b8-b9a3-55ed689517cc" class="">In the <code>intersect</code> function, I actually ran the intersection</p><ol type="1" id="8839d2e9-2f4e-4362-8cee-ac5d1cbf506c" class="numbered-list" start="1"><li>I called the <code>test</code> helper function</li></ol><ol type="1" id="c9d24188-f8e8-4f4c-8756-e89cf3c43f3d" class="numbered-list" start="2"><li>I checked if the two <code>t</code> values were valid. If they were, I continued to work with the smaller of the two.<ul id="0a7c414c-8868-494c-aa47-b03b238b223f" class="bulleted-list"><li style="list-style-type:disc">I set the ray’s <code>max_t</code> to be the smallest <code>t</code> value if it was smaller than the current <code>max_t</code>. I only do the following if this is true</li></ul><ul id="71284c50-f5fe-48e7-94b0-cf099a5c14b6" class="bulleted-list"><li style="list-style-type:disc">I changed the Intersection struct values to the following<ul id="843d1676-17ea-4666-a41a-0de78f0a2f5b" class="bulleted-list"><li style="list-style-type:circle"><code>t</code> was the smallest <code>t</code> value returned by <code>test</code> </li></ul><ul id="69d5598a-0394-40e1-8559-af1ace1d8129" class="bulleted-list"><li style="list-style-type:circle"><code>n</code> became the <code>(r.o + t2 * r.d) - o</code> the normal is just the normalized vector pointing outward from the intersection from the center of the sphere.</li></ul><ul id="a658159e-fa33-47cd-be4e-b705559509b7" class="bulleted-list"><li style="list-style-type:circle"><code>primitive</code> was <code>this</code> (the sphere itself)</li></ul><ul id="3be8d20f-ec2d-4cb4-9d4b-5ceb28b99cf2" class="bulleted-list"><li style="list-style-type:circle"><code>bsdf</code> was just the return value of <code>get_bsdf</code></li></ul></li></ul></li></ol><h2 id="74a423cd-3b2c-424c-a7fb-4e9918113c0c" class="">Explain the triangle intersection algorithm you implemented in your own words.</h2><p id="fe512fd9-a624-4a79-982f-0b0a357769ce" class="">The triangle intersection algorithm follows from the following equations</p><ul id="1d37f137-5278-453f-bbb0-7568679ba3e3" class="bulleted-list"><li style="list-style-type:disc"><code>r(t) = O + tD (ray equation)</code></li></ul><ul id="40216016-421f-4e45-a045-0540548f4c89" class="bulleted-list"><li style="list-style-type:disc">P <code>= P_0α +P_1β + P_2γ (barycentric coordinates)</code></li></ul><p id="c75050cd-e6ee-4329-b8fa-85ae605106ef" class="">Since <code>α + β + γ = 1</code>, we can rewrite </p><ul id="8d098fa5-4f19-4b44-84ae-16b4ed45dbaa" class="bulleted-list"><li style="list-style-type:disc"><code>α = (1 - b_1 - b_2)</code></li></ul><ul id="01912000-b93d-4159-8ee0-0afc3ed6f69e" class="bulleted-list"><li style="list-style-type:disc"><code>β = b_1</code></li></ul><ul id="18f5eba5-826b-4d0d-8711-d99704364c6d" class="bulleted-list"><li style="list-style-type:disc"><code>γ = b_2</code></li></ul><p id="2274a252-9472-47e6-a96d-bc199e6f3614" class="">By substituting for <code>α</code>, <code>β</code>, and <code>γ</code> and setting the ray and barycentric coordinate equations equal, we get.</p><p id="396ead12-2189-4579-bba1-c9cb0439314d" class=""><code>O − P_0 = −tD + b_1(P_1 − P_0) + b_2(P_2 − P_0)</code></p><p id="0633d599-3565-4020-aadd-1c118e9afa31" class="">The matrix form of this equation can be solved to obtain <code>b_1</code>, <code>b_2</code>, and <code>t</code> values. It uses Cramer’s rule, which solves linear equations using matrix determinants. </p><p id="7b395f25-7665-43d7-a8e0-cdc291cd4675" class="">Therefore, solving for the determinants of the matrices and then plugging them into Cramer’s rule allows for solving the equation to get <code>t</code> for the intersection.</p><p id="5cf414f0-8411-4677-b962-b4fe84abb830" class="">
+</p><p id="471fa6f8-005e-41e6-be96-1cef6b95cdf2" class="">To implement triangle intersection test, I first implemented the algorithm described above to obtain <code>b_1</code> , <code>b_2</code> , and <code>t</code> values. To test for intersection, I checked that <code>b_2</code> and <code>b_1</code> were in between 0 and <code>1</code> and <code>1 - b1 - b2</code> was also between 0 and 1. The reason why I must do these checks is to make sure that the intersection is within the triangle. If <code>α + β + γ = 1</code> , then the intersection point can be represented in barycentric coordinates and therefore must be in the triangle.</p><p id="56b1032a-5931-4b25-8847-fe63720db049" class="">
+</p><p id="5abec59f-0b80-47a9-b9c1-821c8029048f" class="">If the test passes, </p><ul id="9cb5fc0e-b46c-43d9-8492-dfcf2faacb11" class="bulleted-list"><li style="list-style-type:disc">I set the ray’s <code>max_t</code> to be the smallest <code>t</code> value if it was smaller than the current <code>max_t</code>.  I only do the following if this is true</li></ul><ul id="828046d8-c75e-451e-92f4-e2734ca40727" class="bulleted-list"><li style="list-style-type:disc">I changed the Intersection struct values to the following<ul id="fd2a393c-9e65-4f1d-a085-68febb5ddb72" class="bulleted-list"><li style="list-style-type:circle"><code>t</code> was the <code>t</code> value .</li></ul><ul id="ea856901-1b5b-4bd5-9c82-fd7fd911f54f" class="bulleted-list"><li style="list-style-type:circle"><code>n</code> was the barycentric interpolation of the three normals of each point on the triangle. <code>alpha * n1 + beta * n2 + gamma * n3</code></li></ul><ul id="49369cb4-a466-4519-b1fc-a23b7efb6d60" class="bulleted-list"><li style="list-style-type:circle"><code>primitive</code> was <code>this</code> (the sphere itself)</li></ul><ul id="ac2c72a8-124e-4680-845c-252a1cbcf817" class="bulleted-list"><li style="list-style-type:circle"><code>bsdf</code> was just the return value of <code>get_bsdf</code></li></ul></li></ul><p id="bf686c07-02a7-4303-8d31-132a6be8f7e5" class="">
+</p><p id="664968ee-09db-405d-a041-18cf90fa9e4c" class="">Show images with normal shading for a few small <em>.dae</em> files.</p><figure id="e4ded332-6335-48fe-807a-c6fc46fbea42" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/banana.png"><img style="width:800px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/banana.png"/></a></figure><figure id="22a026f8-e3ba-4f97-b9b2-8b8dc21c608c" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBempty.png"><img style="width:800px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBempty.png"/></a></figure><figure id="3cc795a1-c1b8-420e-bf61-e78748e8ce96" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBspheres.png"><img style="width:800px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBspheres.png"/></a></figure><h1 id="21d10d19-5aa4-4f89-991e-2788c4de8b92" class="">Part 2</h1><p id="8a0492f6-298e-4779-bd8d-33f7639615e5" class="">Walk through your BVH construction algorithm. Explain the heuristic you chose for picking the splitting point.</p><ol type="1" id="9ef76677-2eef-46ed-941e-fb0fa25bbb97" class="numbered-list" start="1"><li>I computed a bounding box for all the primitives passed into the function, calculating the length and summing the <code>centroid</code> positions of each primitive’s bounding box while doing so</li></ol><ol type="1" id="49a89fe1-21a6-40fb-bd4c-85601a536dcb" class="numbered-list" start="2"><li>I divided the sum of the centroids by the length to get the average centroid</li></ol><ol type="1" id="6d1bcfc3-55c4-4ea0-a272-4453d127bc70" class="numbered-list" start="3"><li>I initialized the <code>BVHNode</code> with the overall bounding box</li></ol><ol type="1" id="44509e3c-4e54-48ef-ab8f-fe589010042c" class="numbered-list" start="4"><li>If the amount of primitives passed in are less than <code>max_leaf_size</code>, I set the left and right nodes to NULL and set the passed in <code>start</code> and <code>end</code> to the node’s <code>start</code> and <code>end</code></li></ol><ol type="1" id="a111c95f-ce32-4820-b9e2-0e1828e81655" class="numbered-list" start="5"><li>Otherwise, I divided the primitives into six left and right collections (vectors of primitives) about each axis (x, y, and z) depending on whether each centroid was above or below the average on that axis. <ul id="cc759ea8-b67b-4e3e-aa86-93ff82089d54" class="bulleted-list"><li style="list-style-type:disc">While doing so, I also computed the amount of primitives I pushed to the left as <code>x_count</code>, <code>y_count</code>, and <code>z_count</code></li></ul><ul id="5e714042-91ae-4185-a604-51083ee5179a" class="bulleted-list"><li style="list-style-type:disc">I ran this check for each set of right and left collections to find the most evenly distributed axis to divide upon. <code>x_check = abs(x_count - length / 2)</code></li></ul><ul id="a13cd158-f272-42e5-aa4c-f775dd4253e9" class="bulleted-list"><li style="list-style-type:disc">I used the axis with the smallest check, as long as both collections weren’t empty for that axis</li></ul><ul id="7758512d-58c2-4285-adc1-1a35da3dc902" class="bulleted-list"><li style="list-style-type:disc">If one of the collections for the selected axis was empty, I just used an axis that had two nonempty collections</li></ul><ul id="e9c73a8f-0d96-4672-8bd1-80447f09e5ab" class="bulleted-list"><li style="list-style-type:disc">If none of the axes had none nonempty collections, I split up the primitives randomly.</li></ul></li></ol><ol type="1" id="e7ab829a-cc76-4781-a759-d083b69699f4" class="numbered-list" start="6"><li>After splitting up the primitives, I ran <code>construct_bvh</code> recursively on the left and right collections, setting the current node’s left and right as their results.</li></ol><ol type="1" id="5b00ee9f-be18-4d13-9a6a-2e9039005a5d" class="numbered-list" start="7"><li>I returned the <code>BVHNode</code>. </li></ol><p id="ccb7d877-2c61-4d54-82fa-27ddb4d7fb7b" class="">Show images with normal shading for a few large <em>.dae</em> files that you can only render with BVH acceleration.</p><figure id="ba70dfb3-4c1e-4d45-ab59-d74e51316d8f" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/maxplanck.png"><img style="width:800px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/maxplanck.png"/></a></figure><figure id="dd976877-7df8-4ca0-9acc-25818c6040fe" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBlucy.png"><img style="width:800px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBlucy.png"/></a></figure><figure id="eb1d7b66-ea77-4e74-9764-4c7035e7a1c9" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/wall-e.png"><img style="width:800px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/wall-e.png"/></a></figure><h2 id="c0f91d0f-508d-4cbd-a978-f7b8a2f68a94" class="">Compare rendering times on a few scenes with moderately complex geometries with and without BVH acceleration. Present your results in a one-paragraph analysis.</h2><p id="96d1dcf8-46b8-4916-b0f6-dd6c35eefb07" class="">Without BVH acceleration, My maxplanck took 24.6102s to render and CBLucy took 111.2615s. When I added bvh, maxplanck took 0.2642s and CBLucy took 0.2903s. maxplanck sped up by 93.15x and CBLucy sped up by 383.26x. This large speed up was because the program no longer had to run intersections for every single primitive for every single ray. BVH acceleration allows for large areas to be skipped for intersection because their bounding box was not intersected. Since there was a lot of empty space in both scenes, the speedup was due to the fact that it did not have to run intersection tests on the empty spaces.</p><h1 id="e9edd230-949b-4076-a8ac-b20f5ffdc713" class="">Part 3</h1><h2 id="bc28ea40-e754-4353-a16b-d08334bba6c2" class="">Walk through both implementations of the direct lighting function.</h2><h3 id="ca863951-4a7f-4e19-a0c0-defa6d05d7b7" class="">estimate_direct_lighting_hemisphere</h3><ol type="1" id="6da30ede-0ddf-491f-a47f-343fd4ac360b" class="numbered-list" start="1"><li>I iterated over the <code>numSamples</code>, which was the number of lights in the scene times the number of samples per light</li></ol><ol type="1" id="9db82e0c-4eb2-4f2a-a4d3-7801a0ea2bd0" class="numbered-list" start="2"><li>I called <code>hemisphereSampler</code> to get <code>wi</code> </li></ol><ol type="1" id="e4fba955-0b1c-4c02-875c-a16f408e512b" class="numbered-list" start="3"><li>I called the <code>f</code> function of the intersection’s <code>bsdf</code> on <code>w_out</code> and <code>wi</code> </li></ol><ol type="1" id="c8e88cac-f43f-4a3a-9df3-d8d414b3cbf5" class="numbered-list" start="4"><li>I created a sample ray starting from the intersection’s hit point in the direction of <code>wi</code> changed to world space</li></ol><ol type="1" id="dbad09ee-35b5-4fae-babb-3d348c0c02df" class="numbered-list" start="5"><li>If the sample ray intersected something, i got the emission from the new intersection’s <code>bsdf</code> </li></ol><ol type="1" id="ba9599be-6bd0-41b8-b5bc-58b55d84f226" class="numbered-list" start="6"><li>I summed up the light for each sample using the following normalization constants <code>(f_r * emit * cos_theta(wi) * (double) 2 * (double) PI) / (double) num_samples;</code></li></ol><h3 id="8670df72-71ba-4b55-828e-bf7b38057f0a" class="">estimate_direct_lighting_importance</h3><ol type="1" id="5916ef47-76b7-48c9-8110-614f159d69c4" class="numbered-list" start="1"><li>I iterated over the lights in the scene</li></ol><ol type="1" id="4cf1d5f4-d2b6-4dc2-ae26-6308a6761321" class="numbered-list" start="2"><li>If the light was a point light, I only sampled it once. Otherwise, I sampled it the number of samples per light times.</li></ol><ol type="1" id="6edaa9aa-8882-4022-9ac6-701988584c9c" class="numbered-list" start="3"><li>I then iterated over the number of samples depending on the type of light</li></ol><ol type="1" id="a141e169-4f44-4291-a7d3-b6291549c913" class="numbered-list" start="4"><li>I sampled <code>wi</code> using <code>sample_L</code> , which also returned the <code>distance to light</code> and the <code>pdf</code> of sampling <code>wi</code> </li></ol><ol type="1" id="5a6f64a3-d0ad-4dcc-a409-1d54833ca312" class="numbered-list" start="5"><li>If the distance to light was less than zero, the light was behind the surface so I just <code>continued</code> in the <code>for</code> loop.</li></ol><ol type="1" id="2f521e34-307b-4e9c-b36a-8f90f8f53dad" class="numbered-list" start="6"><li>Otherwise, I created a ray going straight towards the light from the intersection point with the <code>max_t</code> of the ray being the <code>distance to light</code>. This is a shadow ray.</li></ol><ol type="1" id="d1c01d28-3edd-44ff-a46d-e4dc48881132" class="numbered-list" start="7"><li>If the shadow ray did not intersect anything, then I <code>(fr * emission * (w2o * wi).z) / (pdf)</code> summed up this sample where <code>fr</code> is the intersection’s bsdf <code>f</code> function’s return value on <code>wi</code> and <code>w_out</code>.</li></ol><h2 id="ac96b5f9-cf39-4421-8537-a4f8d77583dc" class="">Show some images rendered with both implementations of the direct lighting function.</h2><h3 id="26250d71-f354-4cc6-973e-1550f56b3240" class="">Hemisphere</h3><figure id="318bd4a8-127b-4e1d-b894-4f55afe8dc5e" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_H_64_32-1.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_H_64_32-1.png"/></a></figure><figure id="0f6311f2-d0b2-43f7-9c49-e9d5a2acf409" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBEmpty_H_64_32.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBEmpty_H_64_32.png"/></a></figure><h3 id="73631e54-d912-477b-b839-f6ed7e84ccd5" class="">Importance</h3><figure id="0350ab75-f11b-4b14-8242-b43cf146bce0" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/bunny_64_32-3.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/bunny_64_32-3.png"/></a></figure><figure id="3d48fd9e-5809-4b64-af91-29e704eccb61" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/dragon_64_32-2.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/dragon_64_32-2.png"/></a></figure><figure id="481f80ed-2f30-47dd-8f7c-c02f2cc57b7c" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/walle_64_32.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/walle_64_32.png"/></a></figure><h2 id="391476eb-8331-4ccf-8bd4-097391a941be" class="">Focus on one particular scene with at least one area light and compare the noise levels in soft shadows when rendering with 1, 4, 16, and 64 light rays (the <code>l</code> flag) and with 1 sample per pixel (the <code>s</code> flag) using light sampling, <strong>not</strong> uniform hemisphere sampling.</h2><figure id="75735bd2-56a7-4f35-904c-d3923b76161a" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_1-3.png"><img style="width:452px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_1-3.png"/></a><figcaption>l = 1</figcaption></figure><figure id="e25854ea-2c74-422a-bdbe-8ea06b536d2b" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_1-5.png"><img style="width:452px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_1-5.png"/></a><figcaption>l = 4</figcaption></figure><figure id="442e282f-59e9-485d-9476-a81b594017b5" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_1-6.png"><img style="width:452px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_1-6.png"/></a><figcaption>l = 16</figcaption></figure><figure id="e75bd739-3426-4179-9394-de8a3ff94937" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_1-7.png"><img style="width:452px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_1-7.png"/></a><figcaption>l = 64</figcaption></figure><h2 id="9bd561b9-3c7a-43ea-bb52-853d36fe5c66" class="">Compare the results between uniform hemisphere sampling and lighting sampling in a one-paragraph analysis.</h2><p id="5027a6b2-6338-4fd4-ba3b-816e7d49c7c5" class="">Uniform hemisphere sampling has a lot more noise than lighting sampling. The noise can be seen in the shadows being grainy and also the walls having variation in color. The noise can also be seen around the light, the light looks like it is glowing in hemisphere sampling. Importance sampling has much smoother lines and less variation in color. Also the light looks like a solid white rectangle instead of looking like it is glowing.</p><h1 id="aaaaaac0-ff7f-4f16-8334-d89f6e5f88a2" class="">Part 4</h1><h2 id="ecf13e86-8ee8-4899-bcc4-9c309339e073" class="">Walk through your implementation of the indirect lighting function.</h2><ol type="1" id="9b7e2fed-67b0-4a28-9160-4881e1d769c4" class="numbered-list" start="1"><li>I called <code>one_bounce_radiance</code>  on the ray and intersection.</li></ol><ol type="1" id="3a5e7113-9415-473b-9d88-20e0d6ceb209" class="numbered-list" start="2"><li>I called <code>sample_f</code> to sample <code>wi</code> and get the corresponding <code>pdf</code> and  <code>f</code> value.</li></ol><ol type="1" id="d9e1c4af-7a7b-4a80-970e-f5836077c2b7" class="numbered-list" start="3"><li>I created a ray that originated at the intersection’s hit point in the direction of <code>wi</code> in world space. I also set this new ray’s depth to be the current ray’s <code>depth - 1</code>.</li></ol><ol type="1" id="e969eb20-99c5-48f7-a5cc-805c20af01ce" class="numbered-list" start="4"><li>If the ray did not intersect<ul id="c0bb4c9a-f764-4273-be13-84636b3ec989" class="bulleted-list"><li style="list-style-type:disc">If <code>isAccumBounces</code>, I returned <code>one_bounce_radiance</code>.</li></ul><ul id="a26eace6-c955-426a-8b2e-8f4a92ac9dfd" class="bulleted-list"><li style="list-style-type:disc">Otherwise, I returned<code> Vector3D(0,0,0)</code> (black)</li></ul></li></ol><ol type="1" id="eecb8276-9b21-4485-9aea-a3a7cb9dfeda" class="numbered-list" start="5"><li>If the ray did intersect <ul id="9b253cdc-3a12-49c7-8550-71d5c269d3fd" class="bulleted-list"><li style="list-style-type:disc">If <code>isAccumBounces</code>, I added the <code>one_bounce_radiance</code> to the recursive call weighted by factors. <code>at_least_one_bounce_radiance(sample_ray, p_prime) * fr * cos_theta(wi) / pdf</code></li></ul><ul id="fdad3762-26dc-4e6a-be13-a03d36839138" class="bulleted-list"><li style="list-style-type:disc">Otherwise, I just returned the recursive call weighted by factors <code>at_least_one_bounce_radiance(sample_ray, p_prime) * fr * cos_theta(wi) / pdf</code></li></ul></li></ol><h2 id="21d356f7-d175-4c3d-bcfc-7dfb391f58be" class="">Show some images rendered with global (direct and indirect) illumination. Use 1024 samples per pixel.</h2><figure id="08c82cda-1de7-4756-8ff8-503455d77fd5" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/bunny-1.png"><img style="width:479px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/bunny-1.png"/></a></figure><figure id="271621b4-bf65-4536-bae8-cbb734f9d36d" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/bunny.png"><img style="width:479px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/bunny.png"/></a></figure><p id="679b1020-e533-4655-98d6-e9419a1de344" class="">
+</p><h2 id="ed231495-e56f-410e-b00d-3ee3e868fc1b" class="">Pick one scene and compare rendered views first with <strong>only</strong> direct illumination, then <strong>only</strong> indirect illumination. Use 1024 samples per pixel. (You will have to edit <code>PathTracer::at_least_one_bounce_radiance(...)</code> in your code to generate these views.)</h2><div id="8d582b87-5f38-431a-b731-335b9994da60" class="column-list"><div id="7aec1fcf-2e4d-4276-ac8a-90093c078204" style="width:50%" class="column"><figure id="881fc7ac-6b93-4fb5-885a-ab09f6fb73fb" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/direct.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/direct.png"/></a></figure></div><div id="0a415f98-256a-4e09-8204-9781a84ed9c2" style="width:50%" class="column"><figure id="a5db1628-b2a0-43a6-b33e-15b52d960def" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/direct%201.png"><img style="width:331px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/direct%201.png"/></a></figure></div></div><h2 id="c860d90d-78c8-4952-aa2a-6aaa123201ba" class="">For <em>CBbunny.dae</em>, render the mth bounce of light with <code>max_ray_depth</code> set to 0, 1, 2, 3, 4, and 5 (the <code>m</code> flag), and <code>isAccumBounces=false</code>. Explain in your writeup what you see for the 2nd and 3rd bounce of light, and how it contributes to the quality of the rendered image compared to rasterization. Use 1024 samples per pixel.</h2><p id="3c5ae7f0-f75e-4f99-9eed-4294cb11aedd" class="">
+</p><figure id="5434af28-2f7c-4ce5-9614-2115c269ade5" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum0.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum0.png"/></a><figcaption>m = 0</figcaption></figure><figure id="2c378a2a-aa3d-4d88-8e3b-3a41aaffc0be" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum1.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum1.png"/></a><figcaption>m = 1</figcaption></figure><figure id="953f8cd8-5592-41a5-8ee4-f8f1ff9b0afa" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum2.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum2.png"/></a><figcaption>m = 2</figcaption></figure><figure id="d22a827f-082b-4d5e-bd62-9a922529c47a" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum3.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum3.png"/></a><figcaption>m = 3</figcaption></figure><figure id="69a73fc4-6d8d-48d8-b772-e8647a9fd81c" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum4.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum4.png"/></a><figcaption>m = 4</figcaption></figure><figure id="d817281c-181f-4a99-aec9-84cbb06fc6fc" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum5.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/notisaccum5.png"/></a><figcaption>m = 5</figcaption></figure><h2 id="6a82a22a-dce7-404b-8485-08b2edb172f8" class="">For <em>CBbunny.dae</em>, compare rendered views with <code>max_ray_depth</code> set to 0, 1, 2, 3, 4, and 5(the <code>m</code> flag). Use 1024 samples per pixel.</h2><figure id="e1804988-cfca-4e6f-abaf-345eace3bb91" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum0.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum0.png"/></a><figcaption>m = 0</figcaption></figure><figure id="07212f7d-35cb-4407-b6e8-e39274d7fc7a" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum1.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum1.png"/></a><figcaption>m = 1</figcaption></figure><figure id="92417d38-d2cf-4e8d-82a2-d13b47a0a69d" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum2.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum2.png"/></a><figcaption>m = 2</figcaption></figure><figure id="54de256b-89f2-4d4a-8437-696b728d70d6" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum0%201.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum0%201.png"/></a><figcaption>m = 3</figcaption></figure><figure id="9d882332-5a03-4199-9cf0-26777afd416f" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum4.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum4.png"/></a><figcaption>m = 4</figcaption></figure><figure id="272215ef-e481-4b6e-986e-0029e875ca92" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum5.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/isaccum5.png"/></a><figcaption>m = 5</figcaption></figure><h2 id="041f03b2-c18a-4155-875a-2781bf09ab0e" class="">For <em>CBbunny.dae</em>, output the Russian Roulette rendering with <code>max_ray_depth</code> set to 0, 1, 2, 3, 4, and 100(the <code>m</code> flag). Use 1024 samples per pixel. </h2><p id="cfac4bc5-a879-47a9-a99e-3f2232addd5c" class="">I added Russian Roulette by using <code>flip_coin</code>  to  generate a chance of termination. If I terminated, I returned <code>one_bounce_radiance</code> if <code>isAccumBounces</code> was on, otherwise I returned <code>Vector(0,0,0)</code>.</p><figure id="18e1a1e1-43e4-4164-acb1-b4e62930c9c2" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette0.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette0.png"/></a><figcaption>m = 0</figcaption></figure><figure id="938999cd-c0eb-4d5e-8905-a5d216be2160" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_depth_1.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/CBbunny_depth_1.png"/></a><figcaption>m = 1</figcaption></figure><figure id="a3bc4812-46d0-4940-8f93-fe96469615e2" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette2.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette2.png"/></a><figcaption>m = 2</figcaption></figure><figure id="c7ae0998-38ba-41a0-b744-4a8e7444b971" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette2%201.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette2%201.png"/></a><figcaption>m = 3</figcaption></figure><figure id="da662e1f-ae46-4139-936b-fc241d7fb506" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette4.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette4.png"/></a><figcaption>m = 4</figcaption></figure><figure id="a24c3aba-0fa8-4b4f-8d34-31dc14efd637" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette100.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/russianroulette100.png"/></a><figcaption>m = 100</figcaption></figure><h2 id="b19c9a41-e33d-4159-9829-26dffab4360b" class="">Pick one scene and compare rendered views with various sample-per-pixel rates, including at least 1, 2, 4, 8, 16, 64, and 1024. Use 4 light rays.</h2><figure id="99bcf7e4-b4bc-4b97-970b-8a7ce1763387" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/1.png"><img style="width:438px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/1.png"/></a><figcaption>s = 1</figcaption></figure><figure id="6e83bf12-34ea-48cb-bb0a-b1e0f2ce6725" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2.png"><img style="width:438px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2.png"/></a><figcaption>s = 2</figcaption></figure><figure id="220e5a72-74fa-4aa8-a37d-78334340a3d2" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/4.png"><img style="width:438px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/4.png"/></a><figcaption>s = 4</figcaption></figure><figure id="88435dc8-3601-45de-8f44-3c6f1a452d9a" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/8.png"><img style="width:438px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/8.png"/></a><figcaption>s = 8 </figcaption></figure><figure id="161204f5-7e45-40f9-98c8-15c72b471223" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/16.png"><img style="width:438px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/16.png"/></a><figcaption>s = 16</figcaption></figure><figure id="10dc1d1f-dc9d-42e7-bd6c-333769f9b353" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/64.png"><img style="width:438px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/64.png"/></a><figcaption>s = 64</figcaption></figure><figure id="4f4d4ad6-850b-4bb3-9040-283e060c75a7" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/1024.png"><img style="width:438px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/1024.png"/></a><figcaption>s = 1024</figcaption></figure><h1 id="68f48a69-a490-4c0b-90a8-ac83bb8bbaea" class="">Part 5</h1><h2 id="6ae48e46-38e2-40fe-a282-eccdc580bc71" class="">Explain adaptive sampling. Walk through your implementation of the adaptive sampling.</h2><p id="2f2be6ed-9313-4ac4-a3cf-0f7ef331f964" class="">Adaptive sampling allows for the program to stop sampling once the pixel has “converged.”</p><p id="37764449-f75c-4cb3-9723-03b0e925ccb2" class="">In order to implement adaptive sampling, I calculated the mean and standard deviation of the samples by keeping a running sum of the <code>illum</code> of each sample and <code><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>l</mi><mi>l</mi><mi>u</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">illum^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.01968em;">ll</span><span class="mord mathnormal">u</span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></code> .</p><p id="8007aaa9-2e31-4061-abc1-e04a5b624e1b" class="">Every <code>samplesPerBatch</code> samples, I checked the inequality 1.96 * <code>standard deviation</code> / sqrt(number of samples so far) ≤ <code>maxTolerance</code> * <code>mu</code></p><ul id="5821d0f1-4125-418c-9933-5dbe7637ecd7" class="bulleted-list"><li style="list-style-type:disc"> <code>mu</code> was the current sum of the <code>illum</code> </li></ul><ul id="1ef387f2-979b-412b-92d0-b6a3c86bafac" class="bulleted-list"><li style="list-style-type:disc"><code>standard deviation</code> was <code>1 / (number of sample s- 1) * (sum of </code><code><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>l</mi><mi>l</mi><mi>u</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex"> illum^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.01968em;">ll</span><span class="mord mathnormal">u</span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></code><code>- sum of illum / number of samples so far)</code></li></ul><ul id="8e6b0e50-5ed0-4a40-92c1-59bed5ad0182" class="bulleted-list"><li style="list-style-type:disc"><code>maxTolerance was a constant</code></li></ul><p id="8ec52fd6-a0a0-41b2-a6c1-dd9fc0fae05f" class="">Whenever the inequality was true or I ran through all of the samples, I wrote the number of samples in to the <code>sampleCountBuffer</code> , indexed using <code>y * sampleBuffer.w + x</code></p><h2 id="2c522547-418e-4576-ae2b-9d726a9c0830" class="">Pick two scenes and render them with at least 2048 samples per pixel. Show a good sampling rate image with clearly visible differences in sampling rate over various regions and pixels. Include both your sample rate image, which shows your how your adaptive sampling changes depending on which part of the image you are rendering, and your noise-free rendered result. Use 1 sample per light and at least 5 for max ray depth.</h2><div id="0bb25120-a91e-422f-8cc9-8cdd6610b9bd" class="column-list"><div id="d49a3fc3-b32e-46e3-8558-464426c1c8fe" style="width:50%" class="column"><figure id="36274b46-064c-45b6-9af5-4735a7f8f9ec" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2048.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2048.png"/></a></figure></div><div id="7ec5854c-f735-4ecc-9b70-a2af88c42f60" style="width:50%" class="column"><figure id="1b47811c-fbf3-47a4-aa72-a666d4c842c4" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2048_rate.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2048_rate.png"/></a></figure></div></div><div id="619577bb-f00b-4f3b-84be-ecd43ca862c8" class="column-list"><div id="dad34255-e9d3-4cf7-9463-dd4ae4ccb9ea" style="width:50%" class="column"><figure id="96d84639-4266-4c46-b575-afb4b0f79301" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2048bench.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2048bench.png"/></a></figure></div><div id="e522e395-0d0c-4f06-b355-59e26dce53e8" style="width:50%" class="column"><figure id="dd8bb63e-0649-44a1-a594-626690bd0dd3" class="image"><a href="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2048bench_rate.png"><img style="width:480px" src="CS%20184%20284A%20Computer%20Graphics%20and%20Imaging,%20Spring%20%205ae4368994614722882424ce5fec64cc/2048bench_rate.png"/></a></figure></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
